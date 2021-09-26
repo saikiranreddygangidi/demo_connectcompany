@@ -1,46 +1,74 @@
 <template>
-    <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
+  <div id="login">
+    <center><h1>Login Form</h1></center>
+    <div class="container">
+      <label>Username : </label>
+      <input
+        type="text"
+        placeholder="Enter Username"
+        v-model="input.username"
+        required
+      />
+      <br /><br />
+      <label>Password : </label>
+      <input
+        type="password"
+        placeholder="Enter Password"
+        v-model="input.code"
+        required
+      />
+      <br /><br />
+      <button @click="login">Login</button><br />
+
+      <span>{{ this.wizard.login }}</span>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'Login',
-        data() {
-            return {
-                input: {
-                    username: "",
-                    password: ""
-                }
-            }
-        },
-         methods: {
-            login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
-                    }
-                } else {
-                    console.log("A username and password must be present");
-                }
-            }
-        }
-    }
+export default {
+  name: "Login",
+  data() {
+    return {
+      input: {
+        username: "",
+        code: "",
+      },
+      wizard: {},
+    };
+  },
+  methods: {
+    login() {
+      console.log("in login ***********");
+      console.log("data is ", this.input);
+      this.$axios
+        .post("/login", this.input)
+        .then((response) => {
+          console.log(response);
+          this.$router.push({ name: "home" });
+        })
+        .catch((err) => {
+          console.log("error message is ", err);
+          this.input.username = "";
+          this.input.code = "";
+          this.wizard.login = " Invalid Credentials. Enter correct details";
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-    #login {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
-        margin: auto;
-        margin-top: 200px;
-        padding: 20px;
-    }
+#login {
+  width: 500px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  margin: auto;
+  margin-top: 100px;
+  padding: 20px;
+}
+
+span {
+  color: red;
+}
+</style>
