@@ -7,7 +7,7 @@ class AuthController {
     try {
       await User.create({
         email: data.email,
-        password: data.password,
+        code: data.code,
         username: data.username,
       });
       return response.status(200).json({
@@ -23,9 +23,11 @@ class AuthController {
     const userinfo = request.post();
     const user = await User.query()
       .where("username", userinfo.username)
-      .andWhere("password", userinfo.password)
+      .where("code", userinfo.code)
       .fetch();
-    if (user.length > 0) {
+
+    console.log(user);
+    if (user.rows.length > 0) {
       return response.status(200).json({
         message: "authenticated",
         data: user,
