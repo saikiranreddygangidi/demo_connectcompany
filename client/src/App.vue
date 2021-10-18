@@ -16,18 +16,24 @@ export default {
   name: "app",
   components: {
     Header,
-    Footer
+    Footer,
   },
   created() {
     let token = sessionStorage.getItem("access_token");
     this.$axios.defaults.headers.common["Authorization"] = token;
     // we should authorize token here by making API call if the token is invalid then clear localStorage and redirect to login page
-  }
+  },
 };
 </script>
 
 <style>
 #app {
+  background: url("https://image.shutterstock.com/image-photo/connection-business-communication-technology-mixed-260nw-574167661.jpg")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

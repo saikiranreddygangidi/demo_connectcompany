@@ -11,7 +11,7 @@ class AuthController {
         username: data.username,
       });
       return response.status(200).json({
-        message: "Successfully registed",
+        message: "Successfully registed in the data",
       });
     } catch (err) {
       return response.status(500).json({
@@ -34,7 +34,7 @@ class AuthController {
       });
     } else {
       return response.status(500).json({
-        message: "unauthecated user",
+        message: "unauthenticated user",
       });
     }
   }

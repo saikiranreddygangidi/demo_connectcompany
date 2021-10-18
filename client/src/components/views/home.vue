@@ -1,9 +1,11 @@
 <template>
   <div id="secure">
-    <h1>Welcome Page</h1>
-    <p>
-      Welcome to Company Connect
-    </p>
+    <h1 class="text-light">Welcome Page</h1>
+
+    <div class="text-light">
+      This is the connect company webPage which is used to connect different
+      users to company directly and subscribe.
+    </div>
   </div>
 </template>
 
@@ -17,8 +19,6 @@ export default {
 </script>
 <style scoped>
 #secure {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
   padding: 20px;
   margin-top: 10px;
 }

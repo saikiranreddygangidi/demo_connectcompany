@@ -54,11 +54,11 @@ module.exports = {
   mysql: {
     client: "mysql",
     connection: {
-      host: Env.get("DB_HOST", PROD_MYSQL_DB.host),
+      host: Env.get("DB_HOST", "localhost"),
       port: Env.get("DB_PORT", ""),
-      user: Env.get("DB_USER", PROD_MYSQL_DB.username),
-      password: Env.get("DB_PASSWORD", PROD_MYSQL_DB.password),
-      database: Env.get("DB_DATABASE", PROD_MYSQL_DB.pathname.substr(1)),
+      user: Env.get("DB_USER", "root"),
+      password: Env.get("DB_PASSWORD", ""),
+      database: Env.get("DB_DATABASE", "adonis"),
     },
   },
 
@@ -76,7 +76,7 @@ module.exports = {
     client: "pg",
     connection: {
       host: Env.get("DB_HOST", PROD_MYSQL_DB.host),
-      port: Env.get("DB_PORT", ""),
+      port: Env.get("DB_PORT", PROD_MYSQL_DB.port),
       user: Env.get("DB_USER", PROD_MYSQL_DB.username),
       password: Env.get("DB_PASSWORD", PROD_MYSQL_DB.password),
       database: Env.get("DB_DATABASE", PROD_MYSQL_DB.pathname.substr(1)),
