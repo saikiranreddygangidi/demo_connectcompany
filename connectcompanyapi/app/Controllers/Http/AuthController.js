@@ -20,13 +20,41 @@ class AuthController {
     }
   }
   async login({ request, response }) {
-    const userinfo = request.post();
+
+
+    const userInfo = request.only(["email", "password"]);
+
+    if (!userInfo.email || !userInfo.password) {
+      logger.error(
+        "AuthController-login, missing required attributes: email/password"
+      );
+      return response.status(400).json({
+        error: {
+          status: 400,
+          message: "bad request, email and password are required",
+        },
+      });
+    }
+
+    const decipher = crypto.createDecipheriv(
+      algorithm,
+      Securitykey,
+      initVector
+    );
+
+    let decryptedData = decipher.update(userInfo.code, "base64", "utf-8");
+
+    decryptedData += decipher.final("utf8");
+
+    userInfo.code = decryptedData;
+
+
     const user = await User.query()
       .where("username", userinfo.username)
       .where("code", userinfo.code)
       .fetch();
+    
 
-    console.log(user);
     if (user.rows.length > 0) {
       return response.status(200).json({
         message: "authenticated",
