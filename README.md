@@ -1,3 +1,3 @@
-# demo_connectcompany
+# connectcompany
 
-This is demo repo for creating the application
+This is  repo for creating the application of connect company
