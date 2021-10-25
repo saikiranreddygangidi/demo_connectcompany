@@ -1,10 +1,32 @@
 "use strict";
+const { validate } = use('Validator')
 
 const User = use("App/Models/User");
 class AuthController {
   async register({ request, response, auth }) {
     const data = request.post();
     try {
+
+      const rules = {
+        email: 'required|email|unique:users,email',
+        code: 'required',
+        username:'required'
+      };
+
+      const validation = await validate(request.post(), rules);
+
+
+    if (validation.fails()) {
+      return response.badRequest({
+        error: {
+          status: 401,
+          message:
+            "bad request, missing some required for internship properties",
+          fields: validation.messages(),
+        },
+      });
+    }
+
       await User.create({
         email: data.email,
         code: data.code,
