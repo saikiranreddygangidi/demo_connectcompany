@@ -7,7 +7,7 @@ class AuthController {
     const data = request.post();
     try {
       const rules = {
-        email: "required|email|unique:users,email",
+        email: "required|email",
         code: "required",
         username: "required",
       };
@@ -35,7 +35,7 @@ class AuthController {
       });
     } catch (err) {
       return response.status(500).json({
-        message: "Please enter all the fields and proper details",
+        message: "Please enter all the fields and proper user details accordingly",
         err: err,
       });
     }
@@ -44,7 +44,7 @@ class AuthController {
     const userInfo = request.only(["email", "password"]);
     
     const rules = {
-      email: 'required|email|unique:users,email',
+      email: 'required|email',
       code: 'required',
     };
 
