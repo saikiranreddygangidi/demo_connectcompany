@@ -45,6 +45,25 @@ class AuthController {
 
 
     const userInfo = request.only(["email", "password"]);
+    
+    const rules = {
+      email: 'required|email|unique:users,email',
+      code: 'required',
+    };
+
+    const validation = await validate(userInfo, rules);
+
+
+  if (validation.fails()) {
+    return response.badRequest({
+      error: {
+        status: 401,
+        message:
+          "bad request, missing some required for internship properties",
+        fields: validation.messages(),
+      },
+    });
+  }
 
     if (!userInfo.email || !userInfo.password) {
       logger.error(
