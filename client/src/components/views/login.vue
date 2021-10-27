@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 
 export default {
   name: "Login",
@@ -44,18 +44,18 @@ export default {
       console.log("in login ***********");
       console.log("data is ", this.input);
 
-      const iv = "sinasinasisinaaa";
-      //console.log("store Intern", this.$store);
-      const cipher = CryptoJS.AES.encrypt(
-        this.imput.code,
-        CryptoJS.enc.Utf8.parse("82f2ceed4c503896c8a291e560bd4325"),
-        {
-          iv: CryptoJS.enc.Utf8.parse(iv),
-          mode: CryptoJS.mode.CBC,
-        }
-      );
+      // const iv = "sinasinasisinaaa";
+      // //console.log("store Intern", this.$store);
+      // const cipher = CryptoJS.AES.encrypt(
+      //   this.imput.code,
+      //   CryptoJS.enc.Utf8.parse("82f2ceed4c503896c8a291e560bd4325"),
+      //   {
+      //     iv: CryptoJS.enc.Utf8.parse(iv),
+      //     mode: CryptoJS.mode.CBC,
+      //   }
+      // );
 
-      this.input.code = cipher.toString();
+      // this.input.code = cipher.toString();
       this.$axios
         .post("/login", this.input)
         .then((response) => {
