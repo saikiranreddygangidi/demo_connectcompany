@@ -2,14 +2,15 @@
 const { validate } = use("Validator");
 
 const User = use("App/Models/User");
-const _ = use("lodash");
+const crypto = require("crypto");
 
 class AuthController {
   async register({ request, response, auth }) {
     const data = request.post();
+    console.log(data);
     try {
       const rules = {
-        email: "required|email",
+        email: "required",
         code: "required",
         username: "required",
       };
@@ -21,7 +22,7 @@ class AuthController {
           error: {
             status: 401,
             message:
-              "bad request, missing some required for internship properties",
+              "bad request, missing some required for register properties",
             fields: validation.messages(),
           },
         });
@@ -33,48 +34,47 @@ class AuthController {
         username: data.username,
       });
       return response.status(200).json({
-        message: "Successfully registered in the data",
+        message: "Successfully registeredd in the data",
       });
     } catch (err) {
       return response.status(500).json({
-        message:
-          "Please enter all the fields and proper user details accordingly",
-        err: err,
+        message: err,
       });
     }
   }
   async login({ request, response, auth }) {
-    const userInfo = request.only(["username", "code"]);
-
+    const userinfo = request.only(["username", "code"]);
     const rules = {
       username: "required",
       code: "required",
     };
 
-    const validation = await validate(userInfo, rules);
+    const validation = await validate(userinfo, rules);
 
     if (validation.fails()) {
       return response.badRequest({
         error: {
           status: 401,
-          message:
-            "bad request, missing some required for connectcompony",
+          message: "bad request, missing some required for connectcompony",
           fields: validation.messages(),
         },
       });
     }
-
-    if (!userInfo.username || !userInfo.code) {
-      logger.error(
+    if (!userinfo.username || !userinfo.code) {
+      console.error(
         "AuthController-login, missing required attributes: email/password"
       );
       return response.status(400).json({
         error: {
           status: 400,
-          message: "bad request, email and password are required",
+          message: "bad request, username and code are required",
         },
       });
     }
+
+    const Securitykey = "82f2ceed4c503896c8a291e560bd4325";
+    const initVector = "sinasinasisinaaa";
+    const algorithm = "aes-256-cbc";
 
     const decipher = crypto.createDecipheriv(
       algorithm,
@@ -82,11 +82,11 @@ class AuthController {
       initVector
     );
 
-    let decryptedData = decipher.update(userInfo.code, "base64", "utf-8");
+    let decryptedData = decipher.update(userinfo.code, "base64", "utf-8");
 
     decryptedData += decipher.final("utf8");
 
-    userInfo.code = decryptedData;
+    userinfo.code = decryptedData;
 
     const user = await User.query()
       .where("username", userinfo.username)
@@ -94,17 +94,16 @@ class AuthController {
       .fetch();
 
     if (user.rows.length > 0) {
-      let jwtToken = await auth.generate(user);
+    //  let jwtToken = await auth.generate(user);
 
       return response.status(200).json({
         message: "authenticated",
         data: user,
-        token: jwtToken.token,
+       // token: jwtToken.token,
       });
     } else {
       return response.status(500).json({
-        message: "Please provide the vaild details ",
-        err: err,
+        message: "unauthenticated user",
       });
     }
   }
