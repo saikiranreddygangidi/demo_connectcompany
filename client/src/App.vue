@@ -28,7 +28,7 @@ export default {
 
 <style>
 #app {
-  background: url("https://image.shutterstock.com/image-photo/connection-business-communication-technology-mixed-260nw-574167661.jpg")
+  background: url("./assets/welcome.jpg")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

@@ -4,7 +4,7 @@
       <div outlined class="home-card">
         <div class="content-container">
           <div
-            class="col col1 border d-flex align-items-center justify-content-center"
+            class="col col1 border text-dark bg-light d-flex align-items-center justify-content-center"
           >
             <h1>Welcome to Connect Company.</h1>
             <p>
@@ -48,7 +48,7 @@ export default {
 <style scoped>
 .home-card-container {
   background-color: #0093e9;
-  background-image: url("../assets/home.jpg");
+  background-image: url("../assets/welcome.jpg");
   display: flex;
   flex-direction: column;
   align-items: center;
