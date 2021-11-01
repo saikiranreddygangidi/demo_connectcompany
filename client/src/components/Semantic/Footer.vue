@@ -7,10 +7,11 @@
   background-color: #1abc9c;
   text-align: left;
   color: whitesmoke;
-  padding: 10px;
+  padding: 5px;
   color: #fff;
   position: absolute;
   bottom: 0;
+
   width: 100%;
 }
 </style>

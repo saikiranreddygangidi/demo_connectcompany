@@ -26,7 +26,7 @@
 </template>
 
 <script>
-// import CryptoJS from "crypto-js";
+import CryptoJS from "crypto-js";
 
 export default {
   name: "Login",
@@ -55,7 +55,7 @@ export default {
         }
       );
 
-      // this.input.code = cipher.toString();
+      this.input.code = cipher.toString();
       this.$axios
         .post("/login", this.input)
         .then((response) => {
