@@ -47,7 +47,7 @@ export default {
       const iv = "sinasinasisinaaa";
       //console.log("store Intern", this.$store);
       const cipher = CryptoJS.AES.encrypt(
-        this.imput.code,
+        this.input.code,
         CryptoJS.enc.Utf8.parse("82f2ceed4c503896c8a291e560bd4325"),
         {
           iv: CryptoJS.enc.Utf8.parse(iv),
