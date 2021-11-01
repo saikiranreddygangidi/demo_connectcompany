@@ -2,6 +2,8 @@
 const { validate } = use("Validator");
 
 const User = use("App/Models/User");
+const _ = use("lodash");
+
 class AuthController {
   async register({ request, response, auth }) {
     const data = request.post();
@@ -35,34 +37,34 @@ class AuthController {
       });
     } catch (err) {
       return response.status(500).json({
-        message: "Please enter all the fields and proper user details accordingly",
+        message:
+          "Please enter all the fields and proper user details accordingly",
         err: err,
       });
     }
   }
-  async login({ request, response }) {
-    const userInfo = request.only(["email", "password"]);
-    
+  async login({ request, response, auth }) {
+    const userInfo = request.only(["username", "code"]);
+
     const rules = {
-      email: 'required|email',
-      code: 'required',
+      username: "required",
+      code: "required",
     };
 
     const validation = await validate(userInfo, rules);
 
+    if (validation.fails()) {
+      return response.badRequest({
+        error: {
+          status: 401,
+          message:
+            "bad request, missing some required for connectcompony",
+          fields: validation.messages(),
+        },
+      });
+    }
 
-  if (validation.fails()) {
-    return response.badRequest({
-      error: {
-        status: 401,
-        message:
-          "bad request, missing some required for internship properties",
-        fields: validation.messages(),
-      },
-    });
-  }
-
-    if (!userInfo.email || !userInfo.password) {
+    if (!userInfo.username || !userInfo.code) {
       logger.error(
         "AuthController-login, missing required attributes: email/password"
       );
@@ -92,14 +94,17 @@ class AuthController {
       .fetch();
 
     if (user.rows.length > 0) {
+      let jwtToken = await auth.generate(user);
+
       return response.status(200).json({
         message: "authenticated",
         data: user,
+        token: jwtToken.token,
       });
     } else {
       return response.status(500).json({
         message: "Please provide the vaild details ",
-        err :err ,
+        err: err,
       });
     }
   }
