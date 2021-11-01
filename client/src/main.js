@@ -11,7 +11,7 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.prototype.$axios = axios.create({
   //baseURL: `${process.env.API_BASE_URL}`,
-  baseURL: "https://connectcompanyapi.herokuapp.com/connectcompany/api/v1",
+  baseURL: "http://127.0.0.1:3333/connectcompany/api/v1",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
