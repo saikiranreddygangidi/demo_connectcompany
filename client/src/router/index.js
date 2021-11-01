@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import LoginComponent from "../components/views/login.vue"
 import RegisterComponent from "../components/views/register.vue"
 import HomeComponent from "../components/views/home.vue"
+import WelcomeComponent from "../components/views/welcome.vue"
+
 
 
 import SecureComponent from "../components/views/secure.vue"
@@ -14,7 +16,7 @@ export default new VueRouter({
         {
             path: '/',
             redirect: {
-                name: "login"
+                name: "welcome"
             }
         },
         {
@@ -36,6 +38,11 @@ export default new VueRouter({
             path: "/secure",
             name: "secure",
             component: SecureComponent
+        },
+        {
+            path: "/Welcome",
+            name: "welcome",
+            component: WelcomeComponent
         }
     ]
 })
