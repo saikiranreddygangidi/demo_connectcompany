@@ -11,7 +11,7 @@ const state = {
     ? JSON.parse(localStorage.getItem("user_details"))
     : null,
 };
-
+//getters
 const getters = {
   loggedIn: (state) => {
     return state.token !== null;
@@ -20,7 +20,7 @@ const getters = {
     return state.userDetails;
   },
 };
-
+//mutation 
 const mutations = {
   saveUserAuth: (state, payload) => {
     // console.log(payload,"-----------payload")
@@ -32,7 +32,7 @@ const mutations = {
     state.userDetails = null;
   },
 };
-
+//action 
 const actions = {
   retrieveToken: (context, credentials) => {
     return new Promise((resolve, reject) => {
