@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     login() {
-      console.log("in login ***********");
+      console.log("in login *****");
       console.log("data is ", this.input);
 
       const iv = "sinasinasisinaaa";
@@ -56,18 +56,36 @@ export default {
       );
 
       this.input.code = cipher.toString();
-      this.$axios
-        .post("/login", this.input)
+      this.$store
+        .dispatch("retrieveToken", this.input)
         .then((response) => {
           console.log(response);
-          this.$router.push({ name: "home" });
+          // let role = response.data.role;
+          // if (role == "user") {
+          //   this.loading = false;
+             this.$router.push({ name: "home" });
+          // } else {
+          //   this.loading = false;
+          //   this.$router.push({ name: "Dashboard" });
+          // }
         })
-        .catch((err) => {
-          console.log("error message is ", err);
-          this.input.username = "";
-          this.input.code = "";
-          this.wizard.login = " Invalid Credentials. Enter correct details";
+        .catch((error) => {
+          this.spin = false;
+          this.user.password = "";
+          this.error = error.response.data.error.message;
         });
+      // this.$axios
+      //   .post("/login", this.input)
+      //   .then((response) => {
+      //     console.log(response);
+      //     this.$router.push({ name: "home" });
+      //   })
+      //   .catch((err) => {
+      //     console.log("error message is ", err);
+      //     this.input.username = "";
+      //     this.input.code = "";
+      //     this.wizard.login = " Invalid Credentials. Enter correct details";
+      //   });
     },
   },
 };
