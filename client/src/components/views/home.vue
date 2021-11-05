@@ -6,6 +6,14 @@
       This is the connect company webPage which is used to connect different
       users to company directly and subscribe.
     </div>
+    
+<div class="btn-center">
+      <b-button variant="primary" @click="logout()">
+        Logout
+        <font-awesome-icon icon="sign-in-alt" class="m-t-4" />
+      </b-button>
+    </div>
+    
   </div>
 </template>
 
@@ -14,6 +22,13 @@ export default {
   name: "Home",
   data() {
     return {};
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("destroyToken").then(() => {
+        this.$router.push({ name: "login" });
+      });
+    },
   },
 };
 </script>
