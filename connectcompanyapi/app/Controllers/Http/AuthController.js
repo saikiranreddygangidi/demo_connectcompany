@@ -87,19 +87,20 @@ class AuthController {
     decryptedData += decipher.final("utf8");
 
     userinfo.code = decryptedData;
-
+    console.log("userinfo ", userinfo);
     const user = await User.query()
       .where("username", userinfo.username)
       .where("code", userinfo.code)
       .fetch();
 
     if (user.rows.length > 0) {
-    //  let jwtToken = await auth.generate(user);
+      const user = await User.findBy({ username: userinfo.username });
+      let jwtToken = await auth.generate(user);
 
       return response.status(200).json({
         message: "authenticated",
         data: user,
-       // token: jwtToken.token,
+        token: jwtToken.token,
       });
     } else {
       return response.status(500).json({
