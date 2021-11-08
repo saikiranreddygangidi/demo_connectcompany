@@ -79,6 +79,17 @@ export default {
       this.model = {} // reset form
       await this.refreshPosts()*/
     },
+    async deletePost (company) {
+      if (confirm('Are you sure you want to delete this post?')) {
+        // if we are editing a post we deleted, remove it from the form
+        if (this.model.companies.id === company.id) {
+            this.events.remove(company)
+         // this.model = {}
+        }
+      //  await api.deletePost(id)
+     //   await this.refreshPosts()
+      }
+    }
     
   }
 }
