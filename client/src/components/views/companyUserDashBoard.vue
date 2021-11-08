@@ -60,4 +60,42 @@
     </b-row>
   </div>
 </template>
-
+<script>
+//import api from '@/api'
+export default {
+  data () {
+    return {
+      loading: false,
+      events: [{id:1,eventName:"mobile launch",eventType:"external",eventDate:"11/7/2021",eventLocation:"Maryville",eventDescription:"Introducing brand new mobile"},
+      {id:2,eventName:"new recruitment",eventType:"internal",eventDate:"11/7/2021",eventLocation:"Maryville",eventDescription:"Introducing brand new mobile"},
+   ],
+      model: {}
+    }
+  },
+  async created () {
+    this.refreshPosts()
+  },
+  methods: {
+    async refreshPosts () {
+      this.loading = true
+      //this.posts = await api.getPosts()
+      this.loading = false
+    },
+    async populatePostToEdit (event) {
+      this.model = Object.assign({}, event)
+    },
+    async savePost () {
+        this.events.push(this.model);
+        /*
+      if (this.model.id) {
+        //await api.updatePost(this.model.id, this.model)
+      } else {
+      //  await api.createPost(this.model)
+      }
+      this.model = {} // reset form
+      await this.refreshPosts()*/
+    },
+    
+  }
+}
+</script>
