@@ -44,3 +44,53 @@
     </b-row>
   </div>
 </template>
+<script>
+//import api from '@/api'
+export default {
+  data () {
+    return {
+      loading: false,
+      companies: [{id:1,companyName:"google",companyLocation:"United States"},
+      {id:2,companyName:"microsoft",companyLocation:"India"},
+   ],
+      model: {}
+    }
+  },
+  async created () {
+    this.refreshPosts()
+  },
+  methods: {
+    async refreshPosts () {
+      this.loading = true
+      //this.posts = await api.getPosts()
+      this.loading = false
+    },
+    async populatePostToEdit (company) {
+      this.model = Object.assign({}, company)
+    },
+    async savePost () {
+        this.companies.push(this.model);
+        /*
+      if (this.model.id) {
+        //await api.updatePost(this.model.id, this.model)
+      } else {
+      //  await api.createPost(this.model)
+      }
+      this.model = {} // reset form
+      await this.refreshPosts()*/
+    },
+    async deletePost (company) {
+      if (confirm('Are you sure you want to delete this post?')) {
+        // if we are editing a post we deleted, remove it from the form
+        if (this.model.companies.id === company.id) {
+            this.events.remove(company)
+         // this.model = {}
+        }
+      //  await api.deletePost(id)
+     //   await this.refreshPosts()
+      }
+    }
+    
+  }
+}
+</script>
