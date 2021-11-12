@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-4">
-    <h1 class="h1" style="background:white">Admin Dashboard</h1>
+    <h1 class="h1" style="background:white">User Dashboard</h1>
     <b-alert :show="loading" variant="info">Loading...</b-alert>
     <b-row>
       <b-col>
@@ -10,6 +10,7 @@
               <th>Company Id</th>
               <th>Company</th>
               <th>Location</th>
+              <th>No of  events</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -18,6 +19,7 @@
               <td>{{ company.id }}</td>
               <td>{{ company.companyName }}</td>
               <td>{{ company.companyLocation }}</td>
+              <td>{{ company.noofevents }}</td>
               <td class="text-right">
                 <a href="#" @click.prevent="populatePostToEdit(company)">Edit</a> -
                 <a href="#" @click.prevent="deletePost(company)">Delete</a>
@@ -50,8 +52,8 @@ export default {
   data () {
     return {
       loading: false,
-      companies: [{id:1,companyName:"google",companyLocation:"United States"},
-      {id:2,companyName:"microsoft",companyLocation:"India"},
+      companies: [{id:1,companyName:"google",companyLocation:"United States",noofevents:1},
+      {id:2,companyName:"microsoft",companyLocation:"India",noofevents:2},
    ],
       model: {}
     }
