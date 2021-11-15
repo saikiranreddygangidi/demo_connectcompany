@@ -49,3 +49,57 @@
   </div>
 </template>
 
+<script>
+//import api from '@/api'
+export default {
+  data () {
+    return {
+      loading: false,
+      modalShow: false,
+      companies: [{id:1,companyName:"google",companyLocation:"United States",noofevents:1},
+      {id:2,companyName:"microsoft",companyLocation:"India",noofevents:2},
+   ],
+      model: {}
+    }
+  },
+  async created () {
+    this.refreshPosts()
+  },
+  methods: {
+    async refreshPosts () {
+      this.loading = true
+      //this.posts = await api.getPosts()
+      this.loading = false
+    },
+    async open(id){
+        if(id==1){
+          console.log("test");
+        }
+    },
+    async savePost () {
+        this.companies.push(this.model);
+        /*
+      if (this.model.id) {
+        //await api.updatePost(this.model.id, this.model)
+      } else {
+      //  await api.createPost(this.model)
+      }
+      this.model = {} // reset form
+      await this.refreshPosts()*/
+    },
+    async deletePost (company) {
+      if (confirm('Are you sure you want to unregister this company?')) {
+        // if we are editing a post we deleted, remove it from the form
+        if (this.model.companies.id === company.id) {
+            this.events.remove(company)
+         // this.model = {}
+        }
+      //  await api.deletePost(id)
+     //   await this.refreshPosts()
+      }
+    }
+    
+  }
+}
+</script>
+
