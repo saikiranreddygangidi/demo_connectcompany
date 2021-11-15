@@ -48,7 +48,7 @@ export default {
 <style scoped>
 .home-card-container {
   background-color: #0093e9;
-  background-image: url("../assets/welcome.jpg");
+  background-image: url("../../assets/welcome.jpg");
   display: flex;
   flex-direction: column;
   align-items: center;
