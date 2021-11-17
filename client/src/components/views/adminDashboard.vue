@@ -83,30 +83,45 @@
 <script>
 //import api from '@/api'
 export default {
-  data () {
+  name: "AdminDashboard",
+  data() {
     return {
       loading: false,
-      companies: [{id:1,companyName:"google",companyLocation:"United States"},
-      {id:2,companyName:"microsoft",companyLocation:"India"},
-   ],
-      model: {}
-    }
+      companies: [
+        {
+          id: 1,
+          companyName: "google",
+          companyLocation: "United States",
+          companyUserName: "saikiran",
+          email: "s@nwmissouri.edu",
+        },
+        {
+          id: 2,
+          companyName: "microsoft",
+          companyLocation: "India",
+          companyUserName: "saikiran",
+          email: "s@nwmissouri.edu",
+        },
+      ],
+      model: {},
+    };
   },
-  async created () {
-    this.refreshPosts()
+  async created() {
+    this.refreshPosts();
+    console.log("hngsdngdfgb", this.$store.getters.loggedIn);
   },
   methods: {
-    async refreshPosts () {
-      this.loading = true
+    async refreshPosts() {
+      this.loading = true;
       //this.posts = await api.getPosts()
-      this.loading = false
+      this.loading = false;
     },
-    async populatePostToEdit (company) {
-      this.model = Object.assign({}, company)
+    async populatePostToEdit(company) {
+      this.model = Object.assign({}, company);
     },
-    async savePost () {
-        this.companies.push(this.model);
-        /*
+    async savePost() {
+      this.companies.push(this.model);
+      /*
       if (this.model.id) {
         //await api.updatePost(this.model.id, this.model)
       } else {
@@ -115,18 +130,22 @@ export default {
       this.model = {} // reset form
       await this.refreshPosts()*/
     },
-    async deletePost (company) {
-      if (confirm('Are you sure you want to delete this post?')) {
+    async deletePost(company) {
+      if (confirm("Are you sure you want to delete this post?")) {
         // if we are editing a post we deleted, remove it from the form
         if (this.model.companies.id === company.id) {
-            this.events.remove(company)
-         // this.model = {}
+          this.events.remove(company);
+          // this.model = {}
         }
-      //  await api.deletePost(id)
-     //   await this.refreshPosts()
+        //  await api.deletePost(id)
+        //   await this.refreshPosts()
       }
-    }
-    
-  }
-}
+    },
+    logout() {
+      this.$store.dispatch("destroyToken").then(() => {
+        this.$router.push({ name: "login" });
+      });
+    },
+  },
+};
 </script>
