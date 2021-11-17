@@ -1,15 +1,60 @@
 <template>
   <div class="container-fluid mt-4">
-    <h1 class="h1" style="background:white">Admin Dashboard</h1>
+    <h1 class="h1" style="background:white">
+      Admin Dashboard
+      <div class="btn-center">
+        <b-button variant="primary" @click="logout()">
+          Logout
+          <font-awesome-icon icon="sign-in-alt" class="m-t-4" />
+        </b-button>
+      </div>
+    </h1>
     <b-alert :show="loading" variant="info">Loading...</b-alert>
     <b-row>
+      <b-card
+        class="d-flex justify-content-center col-sm-3 "
+        style="margin-left : 40%"
+        :title="model.id ? 'Edit Company ID#' + model.id : 'Add New Company'"
+      >
+        <form @submit.prevent="savePost">
+          <b-form-group label="Company Name">
+            <b-form-input
+              type="text"
+              v-model="model.companyName"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Company Location">
+            <b-form-input
+              rows="4"
+              v-model="model.companyLocation"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Company UserName">
+            <b-form-input
+              rows="4"
+              v-model="model.companyUserName"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Company email">
+            <b-form-input rows="4" v-model="model.email"></b-form-input>
+          </b-form-group>
+          <div>
+            <b-btn type="submit" variant="success">Save Company</b-btn>
+          </div>
+        </form>
+      </b-card>
+    </b-row>
+    <br />
+    <b-row>
       <b-col>
-        <table class="table table-striped table-light">
+        <table class=" table table-striped table-light">
           <thead>
             <tr>
               <th>Company Id</th>
               <th>Company</th>
               <th>Location</th>
+              <th>Company User Name</th>
+              <th>Company email</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -18,32 +63,23 @@
               <td>{{ company.id }}</td>
               <td>{{ company.companyName }}</td>
               <td>{{ company.companyLocation }}</td>
+              <td>{{ company.companyUserName }}</td>
+              <td>{{ company.email }}</td>
               <td class="text-right">
-                <a href="#" @click.prevent="populatePostToEdit(company)">Edit</a> -
+                <a href="#" @click.prevent="populatePostToEdit(company)"
+                  >Edit</a
+                >
+                -
                 <a href="#" @click.prevent="deletePost(company)">Delete</a>
               </td>
             </tr>
           </tbody>
         </table>
       </b-col>
-      <b-col lg="3">
-        <b-card :title="(model.id ? 'Edit Company ID#' + model.id : 'Add New Company')">
-          <form @submit.prevent="savePost">
-            <b-form-group label="Company Name">
-              <b-form-input type="text" v-model="model.companyName"></b-form-input>
-            </b-form-group>
-            <b-form-group label="Company Location">
-              <b-form-input rows="4" v-model="model.companyLocation"></b-form-input>
-            </b-form-group>
-            <div>
-              <b-btn type="submit" variant="success">Save Company</b-btn>
-            </div>
-          </form>
-        </b-card>
-      </b-col>
     </b-row>
   </div>
 </template>
+
 <script>
 //import api from '@/api'
 export default {
