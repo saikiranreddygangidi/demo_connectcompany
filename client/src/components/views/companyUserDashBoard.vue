@@ -1,6 +1,11 @@
 <template>
   <div class="container-fluid mt-4">
-    <h1 class="h1" style="background:white">Company User Dashboard</h1>
+    <h1 class="h1" style="background:white">Company User Dashboard <div class="btn-center">
+      <b-button variant="primary" @click="logout()">
+        Logout
+        <font-awesome-icon icon="sign-in-alt" class="m-t-4" />
+      </b-button>
+    </div></h1>
     <b-alert :show="loading" variant="info">Loading...</b-alert>
     <br />
     <b-row>
@@ -115,6 +120,11 @@ export default {
     },
     async populatePostToEdit(event) {
       this.model = Object.assign({}, event);
+    },
+    logout() {
+      this.$store.dispatch("destroyToken").then(() => {
+        this.$router.push({ name: "login" });
+      });
     },
     async savePost() {
       this.events.push(this.model);
