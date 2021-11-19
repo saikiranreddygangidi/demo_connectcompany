@@ -95,16 +95,17 @@ export default {
           // let role = response.data.role;
           // if (role == "user") {
           //   this.loading = false;
-             this.$router.push({ name: "home" });
+          this.$router.push({ name: "home" });
           // } else {
           //   this.loading = false;
           //   this.$router.push({ name: "Dashboard" });
           // }
         })
         .catch((error) => {
-          this.spin = false;
-          this.user.password = "";
-          this.error = error.response.data.error.message;
+          console.log(error);
+          this.input.username = "";
+          this.input.code = "";
+          this.wizard.login = " Invalid Credentials. Enter correct details";
         });
       // this.$axios
       //   .post("/login", this.input)
@@ -127,12 +128,20 @@ export default {
 #login {
   width: 500px;
   border: 1px solid #cccccc;
-  background-color: #ffffff;
+
   margin: auto;
-  margin-top: 100px;
+  margin-top: 10%;
   padding: 20px;
 }
+.login {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
 
+.m-t-4 {
+  margin-top: 4px;
+}
 span {
   color: red;
 }
