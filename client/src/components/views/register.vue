@@ -106,12 +106,8 @@ export default {
 </script>
 
 <style scoped>
-#register {
-  width: 500px;
+.register {
   border: 1px solid #cccccc;
   background-color: #ffffff;
-  margin: auto;
-  margin-top: 100px;
-  padding: 20px;
 }
 </style>
