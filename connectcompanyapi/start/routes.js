@@ -23,4 +23,5 @@ Route.get("/",() =>{
 Route.group(() => {
   Route.post("/register", "AuthController.register");
   Route.post("/login", "AuthController.login");
+  Route.get("/getAllCompanies", "AdminController.getAllCompanies");
 }).prefix("/connectcompany/api/v1");
