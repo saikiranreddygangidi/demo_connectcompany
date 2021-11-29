@@ -4,6 +4,10 @@ import LoginComponent from "../components/views/login.vue";
 import RegisterComponent from "../components/views/register.vue";
 import HomeComponent from "../components/views/home.vue";
 import WelcomeComponent from "../components/views/welcome.vue";
+import AdminDashboard from "../components/views/adminDashboard.vue";
+import CompanyUserDashBoard from "../components/views/companyUserDashBoard.vue";
+import UserDashboard from "../components/views/userDashboard.vue";
+
 import store from "../store";
 
 import SecureComponent from "../components/views/secure.vue";
@@ -38,9 +42,24 @@ const routes = [
     component: SecureComponent,
   },
   {
-    path: "/Welcome",
+    path: "/welcome",
     name: "welcome",
     component: WelcomeComponent,
+  },
+  {
+    path: "/companyUserDashboard",
+    name: "CompanyUserDashboard",
+    component: CompanyUserDashBoard,
+  },
+  {
+    path: "/adminDashboard",
+    name: "AdminDashboard",
+    component: AdminDashboard,
+  },
+  {
+    path: "/userDashboard",
+    name: "UserDashboard",
+    component: UserDashboard,
   },
 ];
 
@@ -48,7 +67,6 @@ const router = new VueRouter({
   routes,
   store,
 });
-
 // router.beforeEach((to, from, next) => {
 //   console.log(store.getters, "----------router before each");
 
