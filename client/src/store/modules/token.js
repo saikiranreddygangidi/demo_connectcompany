@@ -3,7 +3,9 @@ import _ from "lodash";
 import axios from "axios";
 
 // axios.defaults.baseURL = process.env.API_BASE_URL;
-axios.defaults.baseURL = "http://127.0.0.1:3333/connectcompany/api/v1";
+axios.defaults.baseURL =
+  "https://connectcompanyapi.herokuapp.com/connectcompany/api/v1";
+//axios.defaults.baseURL = "http://127.0.0.1:3333/connectcompany/api/v1";
 
 const state = {
   token: sessionStorage.getItem("access_token") || null,
@@ -44,11 +46,11 @@ const actions = {
           console.log(token);
           Vue.prototype.$axios.defaults.headers.common["Authorization"] =
             "Bearer " + token;
-            console.log("token for user ",token)
+          console.log("token for user ", token);
           let userDetails = _.omit(response.data, ["token", "message"]);
-            userDetails=userDetails.data;
-             sessionStorage.setItem("access_token", "Bearer " + token);
-            localStorage.setItem("user_details", JSON.stringify(userDetails));
+          userDetails = userDetails.data;
+          sessionStorage.setItem("access_token", "Bearer " + token);
+          localStorage.setItem("user_details", JSON.stringify(userDetails));
 
           resolve(response);
         })
