@@ -79,7 +79,6 @@
     </b-row>
   </div>
 </template>
-
 <script>
 //import api from '@/api'
 export default {
@@ -87,22 +86,7 @@ export default {
   data() {
     return {
       loading: false,
-      companies: [
-        {
-          id: 1,
-          companyName: "google",
-          companyLocation: "United States",
-          companyUserName: "saikiran",
-          email: "s@nwmissouri.edu",
-        },
-        {
-          id: 2,
-          companyName: "microsoft",
-          companyLocation: "India",
-          companyUserName: "saikiran",
-          email: "s@nwmissouri.edu",
-        },
-      ],
+      companies: [],
       model: {},
     };
   },
@@ -110,11 +94,12 @@ export default {
     this.refreshPosts();
     console.log("hngsdngdfgb", this.$store.getters.loggedIn);
   },
+  async mounted() {},
   methods: {
     async refreshPosts() {
-      this.loading = true;
-      //this.posts = await api.getPosts()
-      this.loading = false;
+      await this.$axios.get("/getAllCompanies").then((response) => {
+        this.companies = response.data;
+      });
     },
     async populatePostToEdit(company) {
       this.model = Object.assign({}, company);
