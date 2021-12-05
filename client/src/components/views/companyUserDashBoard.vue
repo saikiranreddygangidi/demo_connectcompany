@@ -85,27 +85,11 @@
 <script>
 //import api from '@/api'
 export default {
+  name:"CompanyUserDashboard",
   data() {
     return {
       loading: false,
-      events: [
-        {
-          id: 1,
-          eventName: "mobile launch",
-          eventType: "external",
-          eventDate: "11/7/2021",
-          eventLocation: "Maryville",
-          eventDescription: "Introducing brand new mobile",
-        },
-        {
-          id: 2,
-          eventName: "new recruitment",
-          eventType: "internal",
-          eventDate: "11/7/2021",
-          eventLocation: "Maryville",
-          eventDescription: "Introducing brand new mobile",
-        },
-      ],
+      events: [],
       model: {},
     };
   },
@@ -114,17 +98,17 @@ export default {
   },
   methods: {
     async refreshPosts() {
-      this.loading = true;
-      //this.posts = await api.getPosts()
-      this.loading = false;
+      await this.$axios.get("/getAllEvents").then((response) => {
+        this.events = response.data;
+      });
     },
-    async populatePostToEdit(event) {
-      this.model = Object.assign({}, event);
-    },
-    logout() {
+     logout() {
       this.$store.dispatch("destroyToken").then(() => {
         this.$router.push({ name: "login" });
       });
+    },
+    async populatePostToEdit(event) {
+      this.model = Object.assign({}, event);
     },
     async savePost() {
       this.events.push(this.model);
