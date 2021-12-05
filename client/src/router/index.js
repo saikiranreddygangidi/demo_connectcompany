@@ -67,14 +67,34 @@ const router = new VueRouter({
   routes,
   store,
 });
-// router.beforeEach((to, from, next) => {
-//   console.log(store.getters, "----------router before each");
 
-//   if (!store.getters.loggedIn) {
-//     next({ name: "login" });
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  console.log(store.getters.loggedIn, "----------router before each");
+  console.log(to.path);
+  if (to.path == "/welcome" || to.path == "/register") {
+    next();
+  } else if (!store.getters.loggedIn && to.path != "/login") {
+    console.log("in login");
+    next({ name: "login" });
+  } else {
+    console.log("to path is ", to.path);
+    if (store.getters.loggedIn && to.path == "/home") {
+      let role = store.getters.userDetails.role;
+      console.log("role is the", role);
+      if (role == "admin") {
+        next({ name: "AdminDashboard" });
+      }
+      if (role == "companyUser") {
+        next({ name: "CompanyUserDashboard" });
+      }
+      if (role == "user") {
+        console.log("user role");
+        next({ name: "UserDashboard" });
+      }
+    } else {
+      next();
+    }
+  }
+});
 
 export default router;
